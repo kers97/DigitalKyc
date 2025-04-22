@@ -18,8 +18,18 @@ Pod::Spec.new do |spec|
   spec.platform     = :ios, "15.6"
 
   spec.source = {
-  :http => "https://packages.param.com.tr/repository/DigitalKyc-iOS-sdk/DigitalKyc/#{version}/DigitalKyc-#{version}.zip"
-}
+  :http => "https://packages.param.com.tr/repository/DigitalKyc-iOS-sdk/DigitalKyc/#{spec.version}/DigitalKyc-#{spec.version}.zip"
+  }
+
+  spec.prepare_command = <<-CMD
+    echo "🔐 Downloading SDK..."
+    curl -u $NEXUS_USER:$NEXUS_PASS \\
+      -o DigitalKyc-#{spec.version}.zip \\
+      https://packages.param.com.tr/repository/DigitalKyc-iOS-sdk/DigitalKyc/#{spec.version}/DigitalKyc-#{spec.version}.zip
+
+    echo "📦 Unzipping SDK..."
+    unzip -o DigitalKyc-#{spec.version}.zip
+  CMD
 
   spec.static_framework = true
   spec.pod_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
