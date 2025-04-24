@@ -1,5 +1,5 @@
 # DigitalKyc
 
-export NEXUS_USER='your-username'
-export NEXUS_PASS='your-encodedPassword'
+export NEXUS_USER='urlEncodedUsername'
+export NEXUS_PASS='urlEncodeduserpass'
 pod install
